@@ -79,3 +79,10 @@ def delete_user(user_id):
     user.delete()
     return{"success":f"{user.username} has been deleted!"}
 
+# Getting User by ID
+@app.route("/users/<int:user_id>", methods=["GET"])
+def get_user(user_id):
+    user = db.session.get(User, user_id)
+    if user is None:
+        return {"error":f"User with {user_id} not found!"},404
+    return user.to_dict()
